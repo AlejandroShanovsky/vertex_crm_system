@@ -31,17 +31,23 @@
                 <sf:hidden path="discount" value="${user.discount}"/>
                 <table>
                     <tr>
-                        <td class="silver"><input type="file" name="image" accept="image/*"/></td>
-                    </tr>
-                    <tr>
                         <c:if test="${photo != null}">
-                            <input type="hidden" name="imageType" value="photo"/>
-                            <td><input class="black" type="submit" value="Upload New Photo"></td>
+                            <td class="silver"><input type="file" name="image" accept="image/*"/></td>
                         </c:if>
-                        <c:if test="${passportScan != null}">
-                            <input type="hidden" name="imageType" value="passportScan"/>
-                            <td><input class="black" type="submit" value="Upload New Passport Scan"></td>
+                        <c:if test="${passportScan != null && auth.iterator().next().toString().equals('ROLE_ADMIN')}">
+                            <td class="silver"><input type="file" name="image" accept="image/*"/></td>
                         </c:if>
+                    </tr>
+
+                    <tr>
+                            <c:if test="${photo != null }">
+                                <input type="hidden" name="imageType" value="photo"/>
+                                <td><input class="black" type="submit" value="Upload New Photo"></td>
+                            </c:if>
+                            <c:if test="${passportScan != null && auth.iterator().next().toString().equals('ROLE_ADMIN')}">
+                                <input type="hidden" name="imageType" value="passportScan"/>
+                                <td><input class="black" type="submit" value="Upload New Passport Scan"></td>
+                            </c:if>
                     </tr>
                 </table>
             </sf:form>
